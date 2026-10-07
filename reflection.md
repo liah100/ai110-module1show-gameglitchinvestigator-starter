@@ -44,13 +44,12 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+- Streamlit reruns your whole script from top to bottom every time you click a button or type something. Because of that, normal variables reset each time. Session state (`st.session_state`) is like a small memory box that survives the reruns, so things like the secret number, the score, and the attempts count don't disappear. In this game, that's why the secret has to be stored in session state, and why setting the counter to the wrong starting value there caused the off-by-one bug.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- **Habit to reuse:** Writing a small pytest for each fix, and replaying the exact input that caused the bug. It proved the fix worked instead of just hoping it did. I also want to keep making separate commits after each step.
+- **Do differently next time:** I would read the AI's proposed fix more carefully before applying it, because the first suggestion only fixed half of the problem. Next time I'd ask it to list every cause before it writes any code.
+- **How my thinking changed:** AI-generated code can look clean and still be wrong in small ways, so I treat it as a draft that I have to test and verify myself.
