@@ -28,18 +28,17 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+- **Tools used:** I used an AI coding assistant in VS Code and Claude in chat to explain the bugs and help write the fixes and tests.
+- **Correct suggestion:** I asked the AI to explain why a guess of 50 against a secret of 22 told me to go higher. It traced the logic step by step and found that the "Too High" and "Too Low" messages were swapped in `check_guess`. It also noticed that on even attempts the secret was converted to a string, so numbers were compared as text. I verified this by reading `check_guess` myself, then fixing it and replaying the same guess in the live game, which now said "Go LOWER!".
+- **Suggestion I changed:** The AI's proposed fix only swapped the two messages and did not say to remove the string conversion. That would have left hints wrong on alternating guesses, because as text "9" is greater than "10". I removed the conversion as well and added a pytest (`check_guess(9, 10)` must return "Too Low") to prove numbers now compare as numbers.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+- **How I decided a bug was fixed:** I replayed the exact input that triggered it in the live game (50 vs. a secret of 22 for the hints, and 500 or -3 for the range) and confirmed the behavior was right, then confirmed a pytest covering it passed.
+- **Tests I ran:** I ran `python -m pytest`. At first the starter tests failed because `check_guess` returns a pair like `("Win", "🎉 Correct!")` and they expected only `"Win"`. I updated them to unpack the pair. I then added tests for swapped hints, text-vs-number comparison, and out-of-range guesses (500, -3, and 50 on Easy). All 10 pass.
+- **How AI helped with tests:** The AI suggested which cases to test, including the "9" vs "10" case that targets the string-comparison bug. It also warned that the starter tests might fail, which saved me time diagnosing the first failures.
 
 ---
 
